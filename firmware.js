@@ -23,7 +23,7 @@ const firmwareList = [
             "For 2.4 TFT Display...",
 
         file:
-            "firmware/bruce/Bruce-CYD-2432S028.bin"
+            "Bruce-CYD-2432S028.bin"
     },
 
 
