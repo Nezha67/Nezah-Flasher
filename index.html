@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nezha Flasher</title>
+
+    <meta
+        name="description"
+        content="Nezha Flasher - Browser based ESP firmware flasher"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div class="cyber-particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-grid"></div>
+
+    <!-- Header -->
+    <header class="navbar">
+
+    <!-- Logo -->
+    <a href="index.html" class="brand">
+
+        <div class="brand-icon">
+            ⚡
+        </div>
+
+        <div>
+            <h1>
+                NEZHA <span>FLASHER</span>
+            </h1>
+
+            <p>
+                ESP Firmware Utility
+            </p>
+        </div>
+
+    </a>
+
+
+    <!-- Navigation -->
+    <nav class="nav-links">
+
+        <a
+            href="index.html"
+            class="active"
+        >
+            Flasher
+        </a>
+
+        <a href="firmware.html">
+            Firmware
+        </a>
+
+    </nav>
+
+
+    <!-- Version -->
+    <div class="version">
+        v1.0.0
+    </div>
+
+</header>
+
+
+    <!-- Main -->
+    <main class="container">
+
+        <!-- Hero -->
+        <section class="hero">
+
+    <div>
+
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            BROWSER FLASHER
+        </div>
+
+        <h2>
+            Flash your ESP device
+            <br>
+            <span>directly from your browser.</span>
+        </h2>
+
+        <p>
+            Connect your ESP board, select your firmware,
+            and flash it without installing a desktop application.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="firmware.html"
+                class="hero-firmware-btn"
+            >
+                📦 Browse Firmware
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- Main Grid -->
+        <section class="dashboard">
+
+            <!-- LEFT -->
+            <div class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="panel-number">01</span>
+                        <h3>Device</h3>
+                    </div>
+
+                    <span id="connectionStatus" class="disconnected">
+                        ● Disconnected
+                    </span>
+                </div>
+
+
+                <!-- Board -->
+                <div class="form-group">
+
+                    <label for="boardSelect">
+                        BOARD
+                    </label>
+
+                    <select id="boardSelect">
+
+                        <option value="esp32">
+                            ESP32
+                        </option>
+
+                        <option value="esp32-s2">
+                            ESP32-S2
+                        </option>
+
+                        <option value="esp32-s3">
+                            ESP32-S3
+                        </option>
+
+                        <option value="esp32-c3" selected>
+                            ESP32-C3
+                        </option>
+
+                        <option value="esp32-c6">
+                            ESP32-C6
+                        </option>
+
+                        <option value="esp32-h2">
+                            ESP32-H2
+                        </option>
+
+                        <option value="esp8266">
+                            ESP8266
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Connect -->
+                <button
+                    id="connectBtn"
+                    class="btn btn-primary"
+                >
+                    <span>🔌</span>
+                    Connect Device
+                </button>
+
+
+                <!-- Device Info -->
+                <div
+                    id="deviceInfo"
+                    class="device-info hidden"
+                >
+
+                    <div class="info-row">
+                        <span>Chip</span>
+                        <strong id="chipName">--</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>MAC Address</span>
+                        <strong id="macAddress">--</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Flash Size</span>
+                        <strong id="flashSize">--</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Status</span>
+                        <strong class="connected-text">
+                            Connected
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-number">02</span>
+                        <h3>Firmware</h3>
+                    </div>
+
+                    <span class="file-type">
+                        .BIN
+                    </span>
+
+                </div>
+
+
+                <!-- Upload Area -->
+                <label
+                    for="firmwareInput"
+                    class="upload-area"
+                    id="uploadArea"
+                >
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+                    <h4>
+                        Drop firmware here
+                    </h4>
+
+                    <p>
+                        or click to browse
+                    </p>
+
+                    <span>
+                        ESP firmware • .bin
+                    </span>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="firmwareInput"
+                    accept=".bin"
+                    hidden
+                >
+
+
+                <!-- Selected Firmware -->
+                <div
+                    id="firmwareInfo"
+                    class="firmware-info hidden"
+                >
+
+                    <div class="file-icon">
+                        BIN
+                    </div>
+
+                    <div class="file-details">
+
+                        <strong id="fileName">
+                            firmware.bin
+                        </strong>
+
+                        <span id="fileSize">
+                            0 KB
+                        </span>
+
+                    </div>
+
+                    <button
+                        id="removeFile"
+                        class="remove-btn"
+                        title="Remove firmware"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- Flash Button -->
+                <button
+                    id="flashBtn"
+                    class="btn btn-flash"
+                    disabled
+                >
+                    <span>⚡</span>
+                    Flash Firmware
+                </button>
+
+
+                <!-- Erase -->
+                <button
+                    id="eraseBtn"
+                    class="btn btn-secondary"
+                    disabled
+                >
+                    <span>🧹</span>
+                    Erase Flash
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Progress -->
+        <section class="panel progress-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="panel-number">03</span>
+                    <h3>Flash Progress</h3>
+                </div>
+
+                <strong id="progressPercent">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="progress-container">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+
+            </div>
+
+
+            <div class="progress-info">
+
+                <span id="progressStatus">
+                    Ready to flash
+                </span>
+
+                <span id="progressSize">
+                    0 / 0 KB
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- Terminal -->
+        <section class="panel terminal-panel">
+
+            <div class="terminal-header">
+
+                <div class="terminal-title">
+
+                    <span class="terminal-dot"></span>
+
+                    <span>NEZHA TERMINAL</span>
+
+                </div>
+
+                <button
+                    id="clearTerminal"
+                    class="clear-btn"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+
+            <div
+                id="terminal"
+                class="terminal"
+            >
+
+                <div class="terminal-line system">
+                    <span>[SYSTEM]</span>
+                    Nezha Flasher initialized.
+                </div>
+
+                <div class="terminal-line">
+                    <span>[INFO]</span>
+                    Select your ESP board.
+                </div>
+
+                <div class="terminal-line">
+                    <span>[INFO]</span>
+                    Connect your device using USB.
+                </div>
+
+                <div class="terminal-line">
+                    <span>[READY]</span>
+                    Waiting for device...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Warning -->
+        <div class="browser-warning">
+
+            <span>ⓘ</span>
+
+            <div>
+                <strong>Browser requirement</strong>
+
+                <p>
+                    Web Serial requires a supported browser such as
+                    Chrome or Edge and a secure HTTPS connection.
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div>
+            ⚡ <strong>Nezha Flasher</strong>
+        </div>
+
+        <div>
+            Built for ESP developers
+        </div>
+
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
